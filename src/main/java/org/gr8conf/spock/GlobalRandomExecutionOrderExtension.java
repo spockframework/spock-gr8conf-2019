@@ -11,17 +11,17 @@ import org.spockframework.runtime.model.SpecInfo;
 
 public class GlobalRandomExecutionOrderExtension extends AbstractGlobalExtension {
 
-    public static final String RANDOM_ORDER_EXTENSION_SEED = "org.gr8conf.spock.GlobalRandomExecutionOrderExtension";
-
-    private static final long SEED = Long.getLong(RANDOM_ORDER_EXTENSION_SEED, System.currentTimeMillis());
+    private RandomOrderConfiguration configuration;
 
     @Override
     public void visitSpec(SpecInfo spec) {
-        System.out.println(String.format("Randomizing execution order use -D%s=%d to recreate.",RANDOM_ORDER_EXTENSION_SEED, SEED));
-        List<FeatureInfo> allFeatures = new ArrayList<>(spec.getBottomSpec().getAllFeatures());
-        Collections.shuffle(allFeatures, new Random(SEED));
-        for (int i = 0; i < allFeatures.size(); i++) {
-            allFeatures.get(i).setExecutionOrder(i);
+        if(configuration.enabled) {
+            System.out.println(String.format("Randomizing execution order use -D%s=%d to recreate.", "randomOrder.seed", configuration.seed));
+            List<FeatureInfo> allFeatures = new ArrayList<>(spec.getBottomSpec().getAllFeatures());
+            Collections.shuffle(allFeatures, new Random(configuration.seed));
+            for (int i = 0; i < allFeatures.size(); i++) {
+                allFeatures.get(i).setExecutionOrder(i);
+            }
         }
 
     }
