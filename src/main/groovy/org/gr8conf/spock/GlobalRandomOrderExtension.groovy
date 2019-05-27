@@ -6,13 +6,19 @@ import org.spockframework.runtime.model.SpecInfo
 
 class GlobalRandomOrderExtension extends AbstractGlobalExtension {
 
-    static final String PROPERTY_KEY = 'randomOrder.seed'
+    static final String ENABLED_KEY = 'randomOrder.enabled'
 
-    static final long SEED = Long.getLong(PROPERTY_KEY, System.currentTimeMillis())
+    static final String SEED_KEY = 'randomOrder.seed'
+
+    static final boolean ENABLED = Boolean.getBoolean(ENABLED_KEY)
+    static final long SEED = Long.getLong(SEED_KEY, System.currentTimeMillis())
 
     @Override
     void visitSpec(SpecInfo spec) {
-        println "Using RandomOrder for testing. -D$PROPERTY_KEY=$SEED"
+        if (!ENABLED) {
+            return
+        }
+        println "Using RandomOrder for testing. -D$SEED_KEY=$SEED"
 
         Random random = new Random(SEED)
 
