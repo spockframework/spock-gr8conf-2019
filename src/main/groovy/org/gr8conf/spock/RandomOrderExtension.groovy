@@ -6,7 +6,9 @@ import org.spockframework.runtime.model.SpecInfo
 
 class RandomOrderExtension extends AbstractAnnotationDrivenExtension<RandomOrder> {
 
-    public static final long seed = System.currentTimeMillis()
+    static final String PROPERTY_KEY = 'randomOrder.seed'
+
+    static final long SEED = Long.getLong(PROPERTY_KEY, System.currentTimeMillis())
 
     @Override
     void visitSpecAnnotation(RandomOrder annotation, SpecInfo spec) {
@@ -15,7 +17,10 @@ class RandomOrderExtension extends AbstractAnnotationDrivenExtension<RandomOrder
 
     @Override
     void visitSpec(SpecInfo spec) {
-        Random random = new Random(seed)
+        println "Using RandomOrder for testing. -D$PROPERTY_KEY=$SEED"
+
+        Random random = new Random(SEED)
+
         def allFeatures = new ArrayList<>(spec.allFeatures)
         Collections.shuffle(allFeatures, random)
         allFeatures.eachWithIndex { FeatureInfo entry, int i ->
