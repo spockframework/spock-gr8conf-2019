@@ -1,7 +1,9 @@
+import org.gr8conf.spock.RandomOrder
+
 import spock.lang.Shared
 import spock.lang.Specification
 
-
+@RandomOrder
 class FalseNegativeTest extends Specification {
 
     @Shared
