@@ -23,4 +23,7 @@ class IoTest extends Specification {
         result == 'Hello World'
     }
 
+    def "always failing"() {
+        expect: false
+    }
 }
