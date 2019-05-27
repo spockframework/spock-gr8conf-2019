@@ -1,17 +1,16 @@
-import java.nio.file.Files
+import org.gr8conf.spock.TemporaryDirectory
 
-import spock.lang.AutoCleanup
 import spock.lang.Specification
 
 class IoTest extends Specification {
 
-    @AutoCleanup('delete')
-    File parent = Files.createTempDirectory("spock-tmp").toFile()
+    @TemporaryDirectory
+    File parent
 
-    @AutoCleanup('delete')
-    File target  = new File(parent, 'test.txt')
+    File target
 
     def setup() {
+        target = new File(parent, 'test.txt')
         target.text = 'Hello World'
     }
 
