@@ -1,49 +1,401 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>Extending Spock (into the Future) - Gr8Conf 2019</title>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/idea.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Extending Spock
+                <small>(into the Future)</small>
+            </h2>
+        </section>
 
-		<script src="js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+        <section data-markdown>
+            <textarea data-template>
+                ## Who am I?
+                * Leonard Brünings
+                * Spock Project Lead since ~2 years
+                * Over 14 years in OSS
+                * 1&1 Mail & Media Development & Technology GmbH
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Part One - Extending Spock
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                * Question: Who is using Spock?
+                * Question: Who has never used Spock?
+            </aside>
+        </section>
+
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Why?
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                * Spock is awesome already ;)
+                * Repeating Code
+                * Provide a library integration
+                * Do something not possible with standard options
+            </aside>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Annotation or Global?
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                * The first question you face
+            </aside>
+        </section>
+
+        <section>
+            <section data-markdown>
+                <textarea data-template>
+                    ## Annotations
+                    * Are visible
+                    * Allow direct configuration
+                    * Are more focused
+                </textarea>
+
+                <aside class="notes" data-markdown>
+                </aside>
+            </section>
+            <section>
+                <pre><code data-trim class="hljs">
+                @Stepwise
+                class MySpec extends Specification {
+
+                }
+                </code></pre>
+            </section>
+            <section>
+                <pre><code data-trim class="hljs">
+                class MySpec extends Specification {
+
+                    @AutoCleanup
+                    FileReader reader
+
+                    @IgnoreIf({ os.windows })
+                    def "only runs on non-windows hosts"(){
+                        //...
+                    }
+
+                }
+                </code></pre>
+            </section>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Live Coding
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+        <section>
+            <section data-markdown>
+                <textarea data-template>
+                    ## Global Extensions
+                    * Are not directly visible
+                    * Auto activated when found on Classpath
+                </textarea>
+
+                <aside class="notes" data-markdown>
+                </aside>
+            </section>
+            <section>
+                <pre><code data-trim class="hljs">
+                class MySpec extends Specification {
+                    @Rule
+                    TemporaryFolder temporaryFolder
+                }
+                </code></pre>
+                <aside class="notes" data-markdown>
+                    Allows to adapt third-party code.
+                </aside>
+            </section>
+            <section>
+                <pre><code data-trim class="hljs">
+                @SpringBootTest
+                class MySpec extends Specification {
+                }
+                </code></pre>
+                <aside class="notes" data-markdown>
+                    Allows to adapt third-party code.
+                </aside>
+            </section>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Live Coding
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+
+        <section>
+            <section data-markdown>
+                <textarea data-template>
+                    ## Interceptors
+                </textarea>
+
+                <aside class="notes" data-markdown>
+                    * Perform some side effects
+                </aside>
+            </section>
+            <section>
+                <img class="stretch plain" data-src="images/spock_interceptors.png">
+                <aside class="notes" data-markdown>
+                </aside>
+            </section>
+            <section>
+                <img class="stretch plain" data-src="images/spock_interceptors_iteration.png">
+                <aside class="notes" data-markdown>
+                </aside>
+            </section>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Live Coding
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Pitfalls
+                * Not calling `invocation.proceed()`
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                *
+            </aside>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Recap
+                * Annotation Driven Extension
+                  * `extends AbstractAnnotationDrivenExtension`
+                  * annotate `@ExtensionAnnotation`
+                * Global Extension
+                  * `extends AbstractGlobalExtension`
+                  * `META-INF/services/org.spockframework.
+                     runtime.extension.IGlobalExtension`
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Existing Annotations
+                * `@AutoCleanup`
+                * `@Ignore`
+                * `@PendingFeaure`
+                * `@Stepwise`
+                * ...
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                * get started
+                * look for similar
+            </aside>
+        </section>
+
+        <section>
+            <h2>More Information</h2>
+            <a href="http://spockframework.org/spock/docs/1.3/extensions.html">
+                <img class="stretch" src="images/spock-doc-extensions-qrcode.svg">
+            </a>
+            http://spockframework.org/spock/docs/1.3/extensions.html
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+
+        <!--
+
+
+
+                ###
+                PART TWO
+                ###
+
+
+        -->
+        <section data-markdown>
+            <textarea data-template>
+                ## Part Two - into the Future
+            </textarea>
+
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+        <section data-markdown>
+            <textarea data-template>
+                ## Spock 2.0
+            </textarea>
+
+            <aside class="notes" data-markdown>
+                * Question who is still using Java 8
+                * Java 11/12?
+                * Older versions?
+            </aside>
+        </section>
+        <section>
+            <pre><code data-trim class="hljs">
+            class Spock2 extends Specification {
+
+              def "maximum of two numbers #a, #b = #c" (int a, int b, int c) {
+                expect:
+                Math.max(a, b) == c
+
+                where:
+                a | b | c
+                1 | 3 | 3
+                7 | 4 | 7
+                0 | 0 | 0
+              }
+            }
+            </code></pre>
+        </section>
+        <section data-markdown>
+                <textarea data-template>
+                    ## Done
+                    * A new SpockEngine based on the JUnit Platform
+                    * Switch to Java 8 as new Baseline (check against current Java Versions)
+                    * Remove JUnit 4 dependency from spock-core
+                    * Add spock-junit4 to support old junit4 `@Rule`s
+                    * Switch to OTA/opentest4j Exceptions/AssertionErrors
+                    * Data-driven features are always reported separately (`@Unrolled`)
+                </textarea>
+        </section>
+        <section>
+            <img class="stretch plain" data-src="images/Spock-test-results.png">
+            <aside class="notes" data-markdown>
+            </aside>
+        </section>
+        <section data-markdown>
+                <textarea data-template>
+                    ## Planned next
+                    * Ship Spock 2.0-M1
+                    * Enable parallel execution support
+                </textarea>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Keeping up to date
+
+                @spockframework
+            </textarea>
+        </section>
+
+        <!--
+
+
+
+                ###
+                END
+                ###
+
+
+        -->
+
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Getting Help
+                * https://gitter.im/spockframework/spock
+                * https://stackoverflow.com/questions/tagged/spock
+            </textarea>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ## Disclaimer
+
+                All view expressed are my own and  do not necessarily reflect the official policy or position of any other agency,
+                organization, employer or company.
+
+                I assume no responsibility or liability for any errors or omissions in the content of this presentation.
+                The information contained in this presentation is provided on an “as is” basis with no guarantees of completeness,
+                accuracy, usefulness or timeliness.
+            </textarea>
+        </section>
+
+        <section>
+            <h2>Questions?</h2>
+            <a href="https://github.com/spockframework/spock-gr8conf-2019">
+                <img class="stretch" src="images/spock-gr8conf-presentation-qrcode.svg">
+            </a>
+            https://github.com/spockframework/spock-gr8conf-2019
+
+            <aside class="notes">
+            </aside>
+        </section>
+
+    </div>
+</div>
+
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        history: true,
+        progress: false,
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {src: 'plugin/highlight/highlight.js', async: true}
+        ]
+    });
+</script>
+</body>
 </html>
