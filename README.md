@@ -2,7 +2,10 @@
  
 From https://gr8conf.eu/talks/790
 
+View Presentation http://spockframework.org/spock-gr8conf-2019/
+
+## Code
 * Presentation https://github.com/spockframework/spock-gr8conf-2019/tree/presentation
-* Code Groovy https://github.com/spockframework/spock-gr8conf-2019/tree/code-groovy
-* Code Java https://github.com/spockframework/spock-gr8conf-2019/tree/code
+* Groovy https://github.com/spockframework/spock-gr8conf-2019/tree/code-groovy
+* Java https://github.com/spockframework/spock-gr8conf-2019/tree/code
 
